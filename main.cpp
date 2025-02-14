@@ -157,8 +157,10 @@ int main() {
     student *s3 = new student("C", 22);
     LinkedList<student> *ll = new LinkedList<student>(s1);
     ll->add(s2);
-    ll->addhead(s3);
-    ll->delfirst();
+    ll->addhead(s1);
+    ll->insert(1,s3);
+    ll->print();
+    ll->deleteNode(1);
     ll->print();
     ll->reverselist();
     ll->print();
