@@ -34,6 +34,14 @@ public:
         this->length = 1;
         this->head = new Node<T>(value);
     }
+    ~LinkedList() {
+        Node<T> *current = this->head;
+        while (head) {
+            head=head->next;
+            delete current;
+            current=head;
+        }
+    }
     void add(T *value) {
         Node<T> *newNode = new Node<T>(value);
         Node<T> *temp = head;
@@ -42,6 +50,15 @@ public:
         }
         temp->next = newNode;
         length++;
+    }
+    Node<T>* get(int index) {
+        if(index<0 || index>length)
+            return NULL;
+        Node<T>* temp=head;
+        for (int i=0; i<index; i++) {
+            temp=temp->next;
+        }
+        return temp;
     }
 
     void addhead(T *value) {
@@ -67,11 +84,47 @@ public:
     }
 
     void deleteNode(int index) {
-       //TODO:Write the function to delete at the given index. Reuse the pre-written functions for edge cases. Account for missing index.
+        //TODO:Write the function to delete at the given index. Reuse the pre-written functions for edge cases. Account for missing index.
+        if (index<0 || index>=length) {
+            cout<<"index out of range"<<endl;
+            return;
+        }
+        if (index==0) {
+            delfirst();
+        }
+        if (index==length-1) {
+            dellast();
+        }
+        else {
+            Node<T> *temp = get(index-1);
+            Node<T> *deln = temp->next;
+            temp->next = deln->next;
+            delete deln;
+            length--;
+        }
     }
 
-   void insert(int index, T *value) {
-        //TODO:Write a function to insert a new node at a give index. Reuse the pre-written functions for edge cases. Account for missing index
+
+
+    void insert(int index, T *value) {
+        if(index<0 || index>=length) {
+            cout<<"Index is invalid"<<endl;
+            return;
+        }
+        if(index==0){
+            addhead(value);
+        }
+        if (index==length) {
+            add(value);
+        }
+        else{
+            Node<T>* newNode=new Node<T>(value);
+            Node<T>* temp=get(index-1);
+            newNode->next=temp->next;
+            temp->next=newNode;
+            length++;
+        }
+        return;
     }
 
    void reverselist(){
