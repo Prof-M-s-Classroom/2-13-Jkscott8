@@ -129,6 +129,16 @@ public:
 
    void reverselist(){
         //TODO:Write a function to reverse the list using the logic from the slide.
+        Node<T> *prev;
+        Node<T> *current;
+        Node<T> *nextNode;
+        while (current!=NULL) {
+            nextNode = current->next;
+            current->next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        head = prev;
     }
 
     void print() {
@@ -148,9 +158,8 @@ int main() {
     LinkedList<student> *ll = new LinkedList<student>(s1);
     ll->add(s2);
     ll->addhead(s3);
-    ll->print();
     ll->delfirst();
     ll->print();
-    ll->dellast();
+    ll->reverselist();
     ll->print();
 }
